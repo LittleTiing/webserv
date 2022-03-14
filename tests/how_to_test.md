@@ -30,6 +30,8 @@ Cannot open config file
 1. Go to redirectable url:
 http://localhost:8080/images/d5v.gif
 http://localhost:8080//life/pets/a34774573/girl-cat-names/
+
+
 ## Default HTML index file
 
 1. Go to http://localhost:4670/html/
@@ -72,7 +74,7 @@ http://localhost:8080//life/pets/a34774573/girl-cat-names/
 
 ```
 mkdir -p a
-curl -X DELETE http://localhost:8000/a
+curl -v X DELETE http://localhost:8000/a
 ```
 ```
 [...]
@@ -84,23 +86,20 @@ ls ./a
 ls: cannot access './a': No such file or directory
 ```
 
+
 ## Stress tests
 
-### Installation
+1. Install Siege
 
-```sh
-curl -O http://download.joedog.org/siege/siege-latest.tar.gz
-tar xzvpf siege-latest.tar.gz
-cd `ls -1d */ | grep siege- | sort -r | head -1`
-./configure
-make
-sudo make install
+
+```
+rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
+
+brew install siege
 ```
 
-### Test
-
-1. Try 'siege' on an empty page: `siege -b http://localhost:8080/html/empty.html`
-2. Try 'siege' on a page with content: `siege -b http://localhost:8080/html/cute_cat.html`
+2. Try 'siege' on an empty page: `siege -b http://localhost:8080/html/empty.html`
+3. Try 'siege' on a page with content: `siege -b http://localhost:8080/html/cute_cat.html`
 
 
 
@@ -126,9 +125,9 @@ curl http://localhost:8080/html/ports.html
 curl http://localhost:8088/html/ports.html
 curl http://localhost:7000/html/ports.html
 curl http://localhost:9000/ports.html
-curl http://localhost:9090/html/ports.html
-curl http://localhost:9092/html/ports.html
-curl http://localhost:9093/html/ports.html
+curl http://localhost:9090/ports.html
+curl http://localhost:9092/ports.html
+curl http://localhost:9093/ports.html
 ```
 ```html
 <html>
@@ -219,7 +218,7 @@ curl -X POST http://localhost:7066/html/max_body_size.html --data "{\"kitten\": 
 ```
 Error 413 Request Entity Too Large%
 ```
-4. Validate for the server `localhost:7067` that the `client_max_body_size` is set to 100
+4. Validate for the server `localhost:7067` that the `client_max_body_size` is set to 1000
 5. `Curl` the server
 ```
 curl -X POST http://localhost:7067/html/max_body_size.html --data "{\"kitten\": 66666}"
