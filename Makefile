@@ -11,7 +11,7 @@ SRC_PATH = $(addprefix $(SRCS_PATH)/,$(SRC))
 
 OBJ = $(SRC:.cpp=.o)
 
-CC = clang++
+CC = c++
 
 HEADER_DIR = includes
 
